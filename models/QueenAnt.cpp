@@ -38,3 +38,7 @@ QueenAnt::~QueenAnt() {
     cout << "[log] Queen dead" << endl;
 }
 
+string QueenAnt::getType() {
+    return "queen ant";
+}
+

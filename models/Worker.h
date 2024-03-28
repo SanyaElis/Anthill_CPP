@@ -14,6 +14,8 @@ public:
 
     virtual ~Worker();
 
+    string getType() override;
+
     int getCollectedFoodCount() const;
 
     int eat() override;

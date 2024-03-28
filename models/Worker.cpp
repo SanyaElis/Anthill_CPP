@@ -21,5 +21,9 @@ Worker::~Worker() {
     cout << "[log] Worker dead" << endl;
 }
 
+string Worker::getType() {
+    return "worker";
+}
+
 
 

@@ -19,3 +19,7 @@ Soldier::Soldier(int consumedFood, int pestsKillCount) : Ant(consumedFood), pest
 Soldier::~Soldier() {
     cout << "[log] Soldier dead" << endl;
 }
+
+string Soldier::getType() {
+    return "soldier";
+}

@@ -9,6 +9,8 @@ public:
 
     Soldier(int consumedFood, int pestsKillCount);
 
+    string getType() override;
+
     virtual ~Soldier();
 
     int getPestsKillCount() const;

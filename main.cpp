@@ -20,17 +20,21 @@ int main() {
     Anthill* anthill = new Anthill(230);
     anthill->printState();
     anthill->addAnt(new Soldier(24, 10));
+    anthill->addAnt(new Soldier(24, 10));
     anthill->addAnt(new Worker(22, 10));
-    anthill->addAnt(new Policeman(22, 10));
+    anthill->addAnt(new Policeman(22, 1.03));
     anthill->printState();
 //    test(new Worker(24, 11));
 //    test(wor);
     Ant* wor1 = new Worker(34, 34);
     QueenAnt *queenAnt = new QueenAnt(23,23);
     anthill->setQueenAnt(queenAnt);
-    anthill->printState();
+    for (int i = 0; i < 5; ++i) {
+        anthill->oneTick();
+    }
     Ant* testHatch = queenAnt->hatchLarva(11, 9, 8);
     Soldier *testWor = dynamic_cast<Soldier*>(testHatch);
+
 
     delete wor1;
     cout << testWor;

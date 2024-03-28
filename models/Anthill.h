@@ -12,9 +12,9 @@
 
 using namespace std;
 
-extern int LARVA_CONSUMED_FOOD;
-extern int LARVA_BIRTH_COUNT;
+
 extern int INITIAL_PEST_COUNT;
+
 
 
 class Anthill {
@@ -43,7 +43,12 @@ private:
 
     void feedPests();
 
+    void killPests(int numberToKill);
+
 public:
+    template <typename T>
+    void feedAnts(std::vector<T*>& ants);
+
     Anthill(double food);
 
     void printState();
@@ -57,6 +62,8 @@ public:
     void addAnt(Policeman *newAnt);
 
     void oneTick();//todo
+
+    bool isAlive();
 
 };
 

@@ -33,6 +33,8 @@ public:
 
     virtual ~QueenAnt();
 
+    string getType() override;
+
     int getLarvaCount() const;
 
     Ant *hatchLarva(int workerCount, int soldierCount, int policemanCount);

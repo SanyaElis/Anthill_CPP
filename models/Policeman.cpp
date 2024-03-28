@@ -18,3 +18,8 @@ double Policeman::getFoodIncreasePercentage() const {
 Policeman::~Policeman() {
     cout << "[log] Policeman dead" << endl;
 }
+
+string Policeman::getType() {
+    return "policeman";
+}
+
