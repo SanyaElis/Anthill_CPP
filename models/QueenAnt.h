@@ -20,7 +20,7 @@ extern int PEST_CONSUMED_FOOD;
 extern int LARVA_BIRTH_COUNT;
 extern int PEST_KILL_COUNT;
 extern int COLLECTED_FOOD_COUNT;
-extern float FOOD_INCREASE_PERCENTAGE;
+extern double FOOD_INCREASE_PERCENTAGE;
 
 
 class QueenAnt : public Ant {

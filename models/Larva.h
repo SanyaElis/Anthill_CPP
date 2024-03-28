@@ -10,11 +10,11 @@ public:
 
     int eat();
 
+    bool timeToBurn();
 private:
     int consumedFood;
-    int ticksToBurn;
 
-    bool timeToBurn();
+    int ticksToBurn;
 
     int ticksAlive = 0;
 };

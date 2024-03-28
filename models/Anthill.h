@@ -14,6 +14,9 @@ using namespace std;
 
 
 extern int INITIAL_PEST_COUNT;
+extern int INITIAL_WORKER_COUNT;
+extern int INITIAL_POLICEMAN_COUNT;
+extern int INITIAL_SOLDIER_COUNT;
 
 
 class Anthill {
@@ -34,12 +37,20 @@ private:
 
     void createPests(int amountOfPests);
 
+    void createWorkers(int amountOfWorkers);
+
+    void createPoliceman(int amountOfPoliceman);
+
+    void createSoldiers(int amountOfSoldiers);
+
     void feedPests();
 
     template<typename T>
     void feedAnts(std::vector<T *> &ants);
 
     void killPests(int numberToKill);
+
+    void hatchAntFromLarva();
 
 public:
 

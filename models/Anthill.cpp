@@ -3,10 +3,13 @@
 
 Anthill::Anthill(double food) : numberOfFood(food) {
     createPests(INITIAL_PEST_COUNT);
+    createWorkers(INITIAL_WORKER_COUNT);
+    createPoliceman(INITIAL_POLICEMAN_COUNT);
+    createSoldiers(INITIAL_SOLDIER_COUNT);
 }
 
 void Anthill::printState() {
-    cout << "==============================================" << endl;
+    cout << endl << endl << "==============================================" << endl;
 
     cout << "[log] anthill warehouse has " << numberOfFood << " pieces" << endl;
     cout << "[log] anthill has " << pests.size() << " pests" << endl;
@@ -15,7 +18,7 @@ void Anthill::printState() {
     cout << "[log] anthill has " << soldiers.size() << " soldiers" << endl;
     cout << "[log] anthill has " << larvae.size() << " larvae" << endl;
 
-    cout << "==============================================" << endl;
+    cout << "==============================================" << endl << endl << endl;
 }
 
 void Anthill::oneTick() {
@@ -24,11 +27,20 @@ void Anthill::oneTick() {
     for (Larva *larva: larvae) {
         larva->liveOneTick();
     }
+
+    for (int i = larvae.size() - 1; i >= 0; --i) {
+        if (larvae[i]->timeToBurn()) {
+            cout << "[log] larva hatched" << endl;
+            hatchAntFromLarva();
+            delete larvae[i];
+            larvae.erase(larvae.begin() + i);
+        }
+    }
     for (Worker *worker: workers) {
         numberOfFood += worker->getCollectedFoodCount();
     }
     for (Policeman *police: policeman) {
-        numberOfFood *= police->getFoodIncreasePercentage();
+        numberOfFood = numberOfFood * police->getFoodIncreasePercentage();
     }
 
     createLarvae(queenAnt->getLarvaCount());
@@ -55,20 +67,20 @@ void Anthill::feedEveryone() {
         delete queenAnt;
     }
     feedPests();
-
-    for (int i = larvae.size() - 1; i >= 0; --i) {
-        needToEat = larvae[i]->eat();
-        if (numberOfFood - needToEat > 0) {
-            numberOfFood -= needToEat;
-            cout << "[log] larva eat " << needToEat << " pieces" << endl;
-        } else {
-            numberOfFood = 0;
-            cout << "[log] larva didn't get enough food" << endl;
-            delete larvae[i];
-            larvae.erase(larvae.begin() + i);
+    if (!larvae.empty()) {
+        for (int i = larvae.size() - 1; i >= 0; --i) {
+            needToEat = larvae[i]->eat();
+            if (numberOfFood - needToEat > 0) {
+                numberOfFood -= needToEat;
+                cout << "[log] larva eat " << needToEat << " pieces" << endl;
+            } else {
+                numberOfFood = 0;
+                cout << "[log] larva didn't get enough food" << endl;
+                delete larvae[i];
+                larvae.erase(larvae.begin() + i);
+            }
         }
     }
-    cout << "[log] pests are fed " << endl;
     feedAnts(workers);
     feedAnts(policeman);
     feedAnts(soldiers);
@@ -108,6 +120,9 @@ void Anthill::addAnt(Policeman *newAnt) {
 
 void Anthill::feedPests() {
     int needToEat;
+    if (pests.empty()) {
+        return;
+    }
     for (int i = pests.size() - 1; i >= 0; --i) {
         needToEat = pests[i]->stealFood();
         if (numberOfFood - needToEat > 0) {
@@ -178,6 +193,39 @@ void Anthill::feedAnts(vector<T *> &ants) {
     }
     if (!ants.empty()) {
         cout << "[log] " << ants[0]->getType() << " are fed" << endl;
+    }
+}
+
+void Anthill::createWorkers(int amountOfWorkers) {
+    for (int i = 0; i < amountOfWorkers; i++) {
+        workers.push_back(new Worker(WORKER_CONSUMED_FOOD, COLLECTED_FOOD_COUNT));
+    }
+}
+
+void Anthill::createPoliceman(int amountOfPoliceman) {
+    for (int i = 0; i < amountOfPoliceman; i++) {
+        policeman.push_back(new Policeman(POLICEMAN_CONSUMED_FOOD, FOOD_INCREASE_PERCENTAGE));
+    }
+
+}
+
+void Anthill::createSoldiers(int amountOfSoldiers) {
+    for (int i = 0; i < amountOfSoldiers; i++) {
+        soldiers.push_back(new Soldier(SOLDIER_CONSUMED_FOOD, PEST_KILL_COUNT));
+    }
+}
+
+void Anthill::hatchAntFromLarva() {
+    Ant *newAnt = queenAnt->hatchLarva(workers.size(), soldiers.size(), policeman.size());
+    Soldier *soldier = dynamic_cast<Soldier *>(newAnt);
+    Worker *worker = dynamic_cast<Worker *>(newAnt);
+    Policeman *police = dynamic_cast<Policeman *>(newAnt);
+    if (soldier) {
+        soldiers.push_back(soldier);
+    } else if (worker) {
+        workers.push_back(worker);
+    } else {
+        policeman.push_back(police);
     }
 }
 

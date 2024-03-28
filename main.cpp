@@ -6,37 +6,29 @@
 #include "models/Soldier.h"
 #include "models/Policeman.h"
 
-void test(Worker *worker){
-    cout << endl <<"Worker";
-}
+extern int ANT_QUEEN_CONSUMED_FOOD;
+extern int LARVA_COUNT;
+extern int INITIAL_FOOD;
 
-void test(QueenAnt *queenAnt){
-    cout << "QueenAnt";
-}
-
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-//    Ant ant1 = new QueenAnt(23, 34);
-    Anthill* anthill = new Anthill(230);
-    anthill->printState();
-    anthill->addAnt(new Soldier(24, 10));
-    anthill->addAnt(new Soldier(24, 10));
-    anthill->addAnt(new Worker(22, 10));
-    anthill->addAnt(new Policeman(22, 1.03));
-    anthill->printState();
-//    test(new Worker(24, 11));
-//    test(wor);
-    Ant* wor1 = new Worker(34, 34);
-    QueenAnt *queenAnt = new QueenAnt(23,23);
+Anthill *initialize() {
+    Anthill *anthill = new Anthill(INITIAL_FOOD);
+    QueenAnt *queenAnt = new QueenAnt(ANT_QUEEN_CONSUMED_FOOD, LARVA_COUNT);
     anthill->setQueenAnt(queenAnt);
     for (int i = 0; i < 5; ++i) {
         anthill->oneTick();
     }
-    Ant* testHatch = queenAnt->hatchLarva(11, 9, 8);
-    Soldier *testWor = dynamic_cast<Soldier*>(testHatch);
+    return anthill;
+}
 
+int main() {
+    Anthill *anthill = initialize();
 
-    delete wor1;
-    cout << testWor;
+    for (int i = 0; i < 5; ++i) {
+        anthill->oneTick();
+    }
+//    Ant* testHatch = queenAnt->hatchLarva(11, 9, 8);
+//    Soldier *testWor = dynamic_cast<Soldier*>(testHatch);
+//
+//    cout << testWor;
     return 0;
 }
