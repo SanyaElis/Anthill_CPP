@@ -33,30 +33,11 @@ void Anthill::oneTick() {
 
     createLarvae(queenAnt->getLarvaCount());
 
-    for (Soldier *soldier: soldiers){
+    for (Soldier *soldier: soldiers) {
         killPests(soldier->getPestsKillCount());
     }
     printState();
 }
-
-//void Anthill::feedAnts(vector<Ant *> ants) {
-//    int needToEat;
-//    for (int i = ants.size() - 1; i >= 0; --i) {
-//        needToEat = ants[i]->eat();
-//        if (numberOfFood - needToEat > 0) {
-//            numberOfFood -= needToEat;
-//            cout << "[log] " << ants[i]->getType() << " eat " << needToEat << " pieces" << endl;
-//        } else {
-//            numberOfFood = 0;
-//            cout << "[log] " << ants[i]->getType() << " didn't get enough food" << endl;
-//            delete ants[i];
-//            ants.erase(ants.begin() + i);
-//        }
-//    }
-//    if (!ants.empty()){
-//        cout << "[log] " << ants[0]->getType() << " are fed" << endl;
-//    }
-//}
 
 void Anthill::feedEveryone() {
     if (isAlive()) {
@@ -84,16 +65,13 @@ void Anthill::feedEveryone() {
             numberOfFood = 0;
             cout << "[log] larva didn't get enough food" << endl;
             delete larvae[i];
-            larvae.erase(larvae.begin() + i);  // Удаление из вектора
+            larvae.erase(larvae.begin() + i);
         }
     }
     cout << "[log] pests are fed " << endl;
     feedAnts(workers);
-//    feedWorkers();
-    feedPoliceman();
-    feedSoldiers();
-
-
+    feedAnts(policeman);
+    feedAnts(soldiers);
 }
 
 void Anthill::setQueenAnt(QueenAnt *queenAnt) {
@@ -126,58 +104,6 @@ void Anthill::addAnt(Policeman *newAnt) {
     }
     policeman.push_back(newAnt);
     cout << "[log] policeman got into the anthill" << endl;
-}
-
-void Anthill::feedWorkers() {
-    int needToEat;
-    for (int i = workers.size() - 1; i >= 0; --i) {
-        needToEat = workers[i]->eat();
-        if (numberOfFood - needToEat > 0) {
-            numberOfFood -= needToEat;
-            cout << "[log] worker eat " << needToEat << " pieces" << endl;
-        } else {
-            numberOfFood = 0;
-            cout << "[log] worker didn't get enough food" << endl;
-            delete workers[i];
-            workers.erase(workers.begin() + i);  // Удаление из вектора
-        }
-    }
-    cout << "[log] worker are fed " << endl;
-}
-
-void Anthill::feedSoldiers() {
-    int needToEat;
-    for (int i = soldiers.size() - 1; i >= 0; --i) {
-        needToEat = soldiers[i]->eat();
-        if (numberOfFood - needToEat > 0) {
-            numberOfFood -= needToEat;
-            cout << "[log] soldier eat " << needToEat << " pieces" << endl;
-        } else {
-            numberOfFood = 0;
-            cout << "[log] soldier didn't get enough food" << endl;
-            delete soldiers[i];
-            soldiers.erase(soldiers.begin() + i);
-        }
-    }
-    cout << "[log] soldier are fed " << endl;
-
-}
-
-void Anthill::feedPoliceman() {
-    int needToEat;
-    for (int i = policeman.size() - 1; i >= 0; --i) {
-        needToEat = policeman[i]->eat();
-        if (numberOfFood - needToEat > 0) {
-            numberOfFood -= needToEat;
-            cout << "[log] policeman eat " << needToEat << " pieces" << endl;
-        } else {
-            numberOfFood = 0;
-            cout << "[log] policeman didn't get enough food" << endl;
-            delete policeman[i];
-            policeman.erase(policeman.begin() + i);
-        }
-    }
-    cout << "[log] policeman are fed " << endl;
 }
 
 void Anthill::feedPests() {
@@ -218,7 +144,7 @@ void Anthill::killPests(int numberToKill) {
         cout << "[error] number of pests to remove should be non-negative" << endl;
         return;
     }
-    if (pests.empty()){
+    if (pests.empty()) {
         cout << "[log] all pests dead" << endl;
         return;
     }
@@ -235,6 +161,9 @@ void Anthill::killPests(int numberToKill) {
 template<typename T>
 void Anthill::feedAnts(vector<T *> &ants) {
     int needToEat;
+    if (ants.empty()) {
+        return;
+    }
     for (int i = ants.size() - 1; i >= 0; --i) {
         needToEat = ants[i]->eat();
         if (numberOfFood - needToEat > 0) {
@@ -247,7 +176,7 @@ void Anthill::feedAnts(vector<T *> &ants) {
             ants.erase(ants.begin() + i);
         }
     }
-    if (!ants.empty()){
+    if (!ants.empty()) {
         cout << "[log] " << ants[0]->getType() << " are fed" << endl;
     }
 }

@@ -16,7 +16,6 @@ using namespace std;
 extern int INITIAL_PEST_COUNT;
 
 
-
 class Anthill {
 
 private:
@@ -31,23 +30,18 @@ private:
 
     void feedEveryone();
 
-    void feedWorkers();
-
-    void feedSoldiers();
-
-    void feedPoliceman();
-
     void createLarvae(int amountOfLarvae);
 
     void createPests(int amountOfPests);
 
     void feedPests();
 
+    template<typename T>
+    void feedAnts(std::vector<T *> &ants);
+
     void killPests(int numberToKill);
 
 public:
-    template <typename T>
-    void feedAnts(std::vector<T*>& ants);
 
     Anthill(double food);
 
