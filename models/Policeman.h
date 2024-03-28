@@ -11,9 +11,9 @@ public:
 
     int eat() override;
 
-    virtual ~Policeman();
-
     double getFoodIncreasePercentage() const;
+
+    virtual ~Policeman();
 };
 
 

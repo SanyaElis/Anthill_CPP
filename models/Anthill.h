@@ -9,27 +9,42 @@
 #include "Pest.h"
 #include "Larva.h"
 #include <vector>
-#include <list>
 
 using namespace std;
+
+extern int LARVA_CONSUMED_FOOD;
+extern int LARVA_BIRTH_COUNT;
+extern int INITIAL_PEST_COUNT;
 
 
 class Anthill {
 
 private:
-    float numberOfFood;
+    double numberOfFood;
     int ticks = 0;
     vector<Worker *> workers;
     vector<Soldier *> soldiers;
     vector<Policeman *> policeman;
     vector<Pest *> pests;//todo добалять в конструкторе отдельный генератор
-    list<Larva *> larvae;//todo прописать добавление и вылупление (метод, который стучится к королеве)
+    vector<Larva *> larvae;//todo прописать добавление и вылупление (метод, который стучится к королеве)
     QueenAnt *queenAnt;
 
     void feedEveryone();
 
+    void feedWorkers();
+
+    void feedSoldiers();
+
+    void feedPoliceman();
+
+    void createLarvae(int amountOfLarvae);
+
+    void createPests(int amountOfPests);
+
+    void feedPests();
+
 public:
-    Anthill(float food);
+    Anthill(double food);
 
     void printState();
 

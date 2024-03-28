@@ -18,7 +18,7 @@ int QueenAnt::getLarvaCount() const {
     return larvaCount;
 }
 
-Ant *QueenAnt::hatchLarva(int workerCount, int soldierCount, int policemanCount) {//todo написать пропорцию
+Ant *QueenAnt::hatchLarva(int workerCount, int soldierCount, int policemanCount) {
     double koefWorker = (double) workerCount / WORKER_AIM;
     double koefSoldier = (double) soldierCount / SOLDIER_AIM;
     double koefPoliceman = (double) policemanCount / POLICEMAN_AIM;

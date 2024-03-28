@@ -23,8 +23,7 @@ extern int COLLECTED_FOOD_COUNT;
 extern float FOOD_INCREASE_PERCENTAGE;
 
 
-
-class QueenAnt : public Ant {//todo целевые значения
+class QueenAnt : public Ant {
 private:
     int larvaCount;
 public:
@@ -36,7 +35,7 @@ public:
 
     int getLarvaCount() const;
 
-    Ant *hatchLarva(int workerCount, int soldierCount, int policemanCount);//todo передать вектора
+    Ant *hatchLarva(int workerCount, int soldierCount, int policemanCount);
 };
 
 #endif
