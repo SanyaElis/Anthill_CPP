@@ -14,4 +14,4 @@ public:
 };
 
 
-#endif //TASK_2_ANT_H
+#endif

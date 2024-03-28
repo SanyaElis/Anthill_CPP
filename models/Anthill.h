@@ -23,12 +23,11 @@ class Anthill {
 
 private:
     double numberOfFood;
-    int ticks = 0;
     vector<Worker *> workers;
     vector<Soldier *> soldiers;
     vector<Policeman *> policeman;
-    vector<Pest *> pests;//todo добалять в конструкторе отдельный генератор
-    vector<Larva *> larvae;//todo прописать добавление и вылупление (метод, который стучится к королеве)
+    vector<Pest *> pests;
+    vector<Larva *> larvae;
     QueenAnt *queenAnt;
 
     void feedEveryone();
@@ -66,7 +65,9 @@ public:
 
     void addAnt(Policeman *newAnt);
 
-    void oneTick();//todo
+    void oneTick();
+
+    virtual ~Anthill();
 
     bool isAlive();
 

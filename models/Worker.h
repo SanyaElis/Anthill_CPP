@@ -1,7 +1,3 @@
-//
-// Created by sanya on 26.03.2024.
-//
-
 #ifndef TASK_2_WORKER_H
 #define TASK_2_WORKER_H
 
@@ -25,4 +21,4 @@ private:
 };
 
 
-#endif //TASK_2_WORKER_H
+#endif

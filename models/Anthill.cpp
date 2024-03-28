@@ -221,12 +221,37 @@ void Anthill::hatchAntFromLarva() {
     Worker *worker = dynamic_cast<Worker *>(newAnt);
     Policeman *police = dynamic_cast<Policeman *>(newAnt);
     if (soldier) {
-        soldiers.push_back(soldier);
+        addAnt(soldier);
     } else if (worker) {
-        workers.push_back(worker);
+        addAnt(worker);
     } else {
-        policeman.push_back(police);
+        addAnt(police);
     }
+}
+
+Anthill::~Anthill() {
+    for (Worker *worker: workers) {
+        delete worker;
+    }
+    workers.clear();
+    for (Soldier *soldier: soldiers) {
+        delete soldier;
+    }
+    soldiers.clear();
+    for (Policeman *police: policeman) {
+        delete police;
+    }
+    policeman.clear();
+    for (Pest *pest: pests) {
+        delete pest;
+    }
+    pests.clear();
+    for (Larva *larva: larvae) {
+        delete larva;
+    }
+    larvae.clear();
+    delete queenAnt;
+    cout << "[log] anthill deleted" << endl;
 }
 
 

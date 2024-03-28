@@ -20,4 +20,4 @@ public:
 };
 
 
-#endif //TASK_2_POLICEMAN_H
+#endif
